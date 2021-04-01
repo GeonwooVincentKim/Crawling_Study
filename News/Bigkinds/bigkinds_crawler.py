@@ -28,7 +28,7 @@ response = requests.post(
 
 print(response.status_code)
 json_result = response.json()
-print(json_result)
+# print(json_result)
 
 response_dic = json.loads(response.text)
 total_count = response_dic["totalCount"]
@@ -49,7 +49,7 @@ def mysql_connector():
     cursor.execute("CREATE TABLE `TB_TEST_CRAWLER`(`SEQ` INT NOT NULL, `CONTENTS` TEXT)")
 
     results = [result for result in zip(response_dic['getCategoryCodeList'])]
-    print(results)
+    # print(results)
 
     i = 1
     for result in results:

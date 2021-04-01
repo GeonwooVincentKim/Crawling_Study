@@ -25,3 +25,6 @@ conn = connector.connect(
     db='crawl_data_db',
     auth_plugin='mysql_native_password'
 )
+
+
+
