@@ -35,26 +35,31 @@ total_count = response_dic["totalCount"]
 total_page = total_count // 10 if total_count % 10 == 0 else total_count // 10 + 1
 print(total_page)
 
-conn = connector.connect(
-    user='root',
-    passwd='1234',
-    host='localhost',
-    db='crawl_data_db',
-    auth_plugin='mysql_native_password'
-)
-
-cursor = conn.cursor()
-cursor.execute("DROP TABLE IF EXISTS `TB_TEST_CRAWLER`")
-cursor.execute("CREATE TABLE `TB_TEST_CRAWLER`(`SEQ` INT NOT NULL, `CONTENTS` TEXT)")
-
-results = [result for result in zip(response_dic['getCategoryCodeList'])]
-print(results)
-
-i = 1
-for result in results:
-    cursor.execute(
-        f"INSERT INTO `TB_TEST_CRAWLER` VALUES({i}, \"{result[0]}\")"
+def mysql_connector():
+    conn = connector.connect(
+        user='root',
+        passwd='1234',
+        host='localhost',
+        db='crawl_data_db',
+        auth_plugin='mysql_native_password'
     )
-    i += 1
-conn.commit()
-conn.close()
+
+    cursor = conn.cursor()
+    cursor.execute("DROP TABLE IF EXISTS `TB_TEST_CRAWLER`")
+    cursor.execute("CREATE TABLE `TB_TEST_CRAWLER`(`SEQ` INT NOT NULL, `CONTENTS` TEXT)")
+
+    results = [result for result in zip(response_dic['getCategoryCodeList'])]
+    print(results)
+
+    i = 1
+    for result in results:
+        cursor.execute(
+            f"INSERT INTO `TB_TEST_CRAWLER` VALUES({i}, \"{result[0]}\")"
+        )
+        i += 1
+    conn.commit()
+    conn.close()
+
+
+if __name__ == "__main__":
+    mysql_connector()
