@@ -61,10 +61,13 @@ def mysql_detail_connector():
     results = [result for result in zip(detail_response_dic['TITLE'])]
     # print(results)
 
+    SQL = "INSERT INTO TB_TEST_DETAIL (SEQ, CONTENTS) VALUES (%d, %s)"
     i = 1
     for result in results:
         cursor.execute(
-            f"INSERT INTO `TB_TEST_DETAIL_CRAWLER` VALUES({i}, \"{result[0]}\")"
+            SQL,
+            i, result[0]
+            # f"INSERT INTO `TB_TEST_DETAIL_CRAWLER` VALUES({i}, \"{result[0]}\")"
         )
         i += 1
     conn.commit()
